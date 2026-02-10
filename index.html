@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Valentine Card</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(to bottom right, #ff758c, #ff7eb3);
+      padding: 16px;
+    }
+
+    .card {
+      background: white;
+      padding: 32px;
+      border-radius: 22px;
+      text-align: center;
+      max-width: 380px;
+      width: 100%;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      font-size: 24px;
+      color: #ff4d6d;
+      margin-bottom: 28px;
+    }
+
+    .btn-area {
+    position: relative;
+    height: 100px;
+    width: 220px;          /* limit movement area */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+
+    .no-btn {
+    position: absolute;
+    top: 60px;             /* start below Yes */
+    left: 110px;
+    transform: translateX(-50%);
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+      border-radius: 999px;
+      font-size: 18px;
+      padding: 14px 28px;
+      transition: transform 0.2s;
+    }
+
+    .yes-btn {
+      background: #ff4d6d;
+      color: white;
+      z-index: 10;
+    }
+
+    .yes-btn:hover {
+      transform: scale(1.05);
+    }
+
+    .yes-btn:active {
+      transform: scale(0.95);
+    }
+
+
+    /* Modal */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 50;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 28px;
+      border-radius: 22px;
+      text-align: center;
+      max-width: 360px;
+      width: 100%;
+    }
+
+    .modal img {
+      width: 100%;
+      border-radius: 12px;
+      margin-top: 16px;
+    }
+
+    .close-text {
+      margin-top: 16px;
+      font-size: 12px;
+      color: #999;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+    <h1>Will you be my Valentine? 💘</h1>
+
+    <div class="btn-area">
+      <button class="yes-btn" id="yesBtn">Yes 💖</button>
+      <button class="no-btn" id="noBtn">No 😭</button>
+    </div>
+  </div>
+
+  <div class="modal" id="modal">
+    <div class="modal-content" id="modalContent">
+      <h2>Congrats! 💕</h2>
+      <p style="color:#666;">You are officially my Valentine 😘</p>
+
+      <img src="/valentine/valentine.webp" alt="valentine">
+
+      <p class="close-text">(tap anywhere to close)</p>
+    </div>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const modal = document.getElementById("modal");
+    const modalContent = document.getElementById("modalContent");
+
+    function moveButton() {
+      const randomX = Math.floor(Math.random() * 140);
+      const randomY = Math.floor(Math.random() * 40);
+
+      noBtn.style.left = randomX + "px";
+      noBtn.style.top = randomY + "px";
+    }
+
+    noBtn.addEventListener("mouseenter", moveButton);
+    noBtn.addEventListener("click", moveButton);
+    noBtn.addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      moveButton();
+    });
+
+    yesBtn.addEventListener("click", () => {
+      modal.style.display = "flex";
+    });
+
+    modal.addEventListener("click", () => {
+      modal.style.display = "none";
+    });
+
+    modalContent.addEventListener("click", (e) => {
+      e.stopPropagation();
+    });
+  </script>
+
+</body>
+</html>
